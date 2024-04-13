@@ -66,9 +66,6 @@ get_zero_blank_estimate <- function(data,
   # it's blanks. 
   
   if(get_zero){
-    # TODO: If there's an NA in apps between good years, 
-    # we might want to put in the zero rather than 
-    # drop it like I'm doing.
     data <- data %>% 
       filter(year <= this_year,
              points_level==0,
@@ -93,7 +90,7 @@ get_zero_blank_estimate <- function(data,
   }
   
 
-  # Chat and I worked out the below.
+
   # Applying Simple Exponential Smoothing on the differenced data
   fit <- ses(data$diff_apps[!is.na(data$diff_apps)], h = 1,level = level)
   
@@ -213,27 +210,6 @@ simulate_points_levels <- function(data,
 # apps tables for a given year. 
 
 simulate_apps_tables <- function(data,this_year=2024,num_tables=1000){
-  # given a data frame that's just the data for one district-item-
-  # residency combo, this function will simulate and return num_tables
-  # sets of simulations, in one big data.frame. We're forecasting
-  # for "this_year". The columns of that 
-  # data frame are
-  # 1. sim: a counter of the simulation
-  # 2. points_level: Blank, 0, 1, ..., max(points_level)
-  # 3. apps: a simulated number of apps
-  # 
-  # There should be length(unique(points_level))*num_tables in 
-  # the return. 
-  
-  # from testing
-  # data <- d %>% filter(district=="270-50",residency=="RESIDENT")
-  # num_tables <- 10
-  # this_year <- 2023
-  
-
-  
-  
-  
   unique_years <- data %>% pull(year) %>% unique()
   this_district <- unique(data$district)
   this_item <- unique(data$item)
@@ -301,9 +277,6 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
 
   # add adjusted points
   points_table$adjusted_points <- 1
-  
-  # Doing it this old-school way to avoid the warning that comes
-  # from attempting to call as.numeric on "Blank"
   points_table$adjusted_points[
     !(points_table$points_level %in% c(0,"Blank"))
   ] <- as.numeric(points_table$points_level[!(points_table$points_level %in% c(0,"Blank"))])^2 + 1
@@ -315,8 +288,7 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
   indices <- 1:nrow(points_table)
   
   for(i in 1:num_permits){
-    
-    # We need to calculate total points each time through
+
     points_table <- points_table %>% 
       mutate(total_points = (apps-successes)*adjusted_points)
 
