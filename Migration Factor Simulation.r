@@ -11,25 +11,7 @@ refresh <- function() {
 
 # Some functions for our sampling
 get_row_migration <- function(target_level,data,target_year=2023) {
-  # For a given points_level, this returns the previous
-  # migration fractions. We assume points_level != 0 or Blank. 
-  # We'll return a data.frame with the following columns: 
-  # year: the year that had this migration "into it". If 2006 is 
-  #       the first year in our data set, then our first year
-  #       will be 2007. 
-  # apps: the number of apps in that year
-  # lag_apps: the number of apps in year N-1
-  # carry_forward: the number of failures at one lower point
-  #                value. So if points_level is 3, then this
-  #                will be the number of people who drew unsuccessfully
-  #                in the previous year.
-  # migration_factor: apps/carry_forward
-  # migration_amount: apps - carry_forward. I think *not* using percents
-  #                   will make sense at the higher levels of points
-  #                   where apps is very low.
-  # we'll cut down the data to only years up through this year
-  # as a convenience for later functions.
-  
+ 
   # from testing
   # data <- d %>% filter(district=="270-50",residency=="RESIDENT")
   
@@ -72,13 +54,7 @@ get_row_migration <- function(target_level,data,target_year=2023) {
   
 }
 
-#get_row_migration(5,d %>% 
-#                    filter(district=="270-50",residency=="RESIDENT"))
-#get_row_migration(18,d %>% 
-#                     filter(district=="270-50",residency=="RESIDENT"))
-# It looks weird to me that so many of these are negative 
-# Sam has confirmed it's right. I guess I'm not understanding
-# all the forces behind people putting in at a particular level
+
 
 get_zero_blank_estimate <- function(data,
                                     get_zero=T,
@@ -368,8 +344,7 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
     
   }
   
-  # Getting rid of adjusted_points and total_points
-  # since we're using the the former for bookkeeping
+
   return(points_table %>% select(-adjusted_points,-total_points))
   
 }
