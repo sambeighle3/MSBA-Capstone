@@ -1,0 +1,89 @@
+#9- 4/8/2024
+Progress: Working on the second draft of my paper and digital product revisions.
+
+Problems: No problems, just cleaning up a few small things throughout the paper and product. 
+
+Plans: Continue to work on improving where I can. 
+
+Hours: 10
+
+#8- 4/4/2024
+Progress: Working on the second draft of my paper. 
+
+Problems: No problems, just cleaning up a few small things throughout the paper and product. 
+
+Plans: Continue to work on improving where I can. 
+
+Hours: 10
+
+#7- 3/26/2024
+Progress: I have completed the first draft of my digital product. 
+
+Problems: No problems, just cleaning up a few small things throughout the paper and product. 
+
+Plans: Continue to work on improving where I can. 
+
+Hours: 10
+#7 - 3/11/2024
+Progress: I have the simulation working for all permits and the lottery. I am now working on the paper and digital product.
+
+Problems: No problems, just lots of time needed to write the paper. Maybe working through best ways to show in digital product.
+
+Plans: Continue to write and brainstorm on project.
+
+Hours: 15-20 - its taking a lot of time every week
+
+#6 - 3/4/2024
+Progress: I have the simulation working for all permits and the lottery.
+
+Problems: The code continues to crash my computer so I am looking for ways to optimize this. 
+
+Plans: I am looking into different methods to get the code to run so that I can proceed with the data analysis phase of the project from the simulation and lotteries.
+
+Hours: 15-20 - its taking a lot of time every week
+
+#5 - 2/27/2024
+Progress: I have the simulation working for a single permit.
+
+Problems: I am struggling to get it to work for every permit in a file.
+
+Plans: I plan to continue work on both of these parts of the project. My goal would be to deploy this before April 1. I know that's a long shot, but that's also the deadline for permit applications for 2024. 
+
+Hours: 15-20 - its taking a lot of time every week
+
+#4 - 2/19/2024
+Progress: I have made progress on the different types of models. So far the best model is looking to be the simulation pulling the different factors.
+
+Problems: I am working through an alternative route with John that accounts for the variability in the system. A resampling method that pulls from the error in the predictions of an exponential smoothing model.
+
+Plans: I plan to continue work on both of these parts of the project. My goal would be to deploy this before April 1. I know that's a long shot, but that's also the deadline for permit applications for 2024. 
+
+#3 - 2/12/2024
+Progress: I have now switched gears to a simulation approach of the number of points in my dataset. We met with John and made good progress on the direction of this project.
+
+Problems: I am now tasked with creating a simulation based on the percentage change from year to year. This is a new task I will spend the week trying to tackle.
+
+Plans: I plan to work this week on the code and hopefully get it to work by the weekend.
+
+
+
+
+#2 - 2/5/2024
+Progress: I spent the week working on different models to try and find the best fitting one. While there was not a clear cut "best" model. I did settle upon one that I think will be acceptable moving forward in this project.
+
+Problems: I am having some problems trying to do the calculations with the modeled data because of some data formatting issues. It's not a huge problem and I will have it resolved with a few more hours of troubleshooting.
+
+Plans: I plan to fix the problems then quality check my work and hopefully start working on more of the digital product moving forward.
+
+
+
+#1 - 1/29/2024
+Progress: I have made progress and complete all of the data cleaning and merging tasks. 
+I have created a regression model that decently predicts, but still looking to find a way to get the simulation to work with solid accuracy.
+
+Problems: I am stuck on the simulation. I am working through best processes to create a simulation and still improving my understanding of the use of simulations. 
+I am also working with whether I should simulate the applicants, or just the draw percentage.
+
+Plans: I plan to continue to explore the internet for information on simulations and then continue to try and work through the necessary coding.
+
+Hours: I have spent 20 hours or so over break on my project leading up to this week. Last week was chaotic for me so my work on it was slightly less.

@@ -11,25 +11,7 @@ refresh <- function() {
 
 # Some functions for our sampling
 get_row_migration <- function(target_level,data,target_year=2023) {
-  # For a given points_level, this returns the previous
-  # migration fractions. We assume points_level != 0 or Blank. 
-  # We'll return a data.frame with the following columns: 
-  # year: the year that had this migration "into it". If 2006 is 
-  #       the first year in our data set, then our first year
-  #       will be 2007. 
-  # apps: the number of apps in that year
-  # lag_apps: the number of apps in year N-1
-  # carry_forward: the number of failures at one lower point
-  #                value. So if points_level is 3, then this
-  #                will be the number of people who drew unsuccessfully
-  #                in the previous year.
-  # migration_factor: apps/carry_forward
-  # migration_amount: apps - carry_forward. I think *not* using percents
-  #                   will make sense at the higher levels of points
-  #                   where apps is very low.
-  # we'll cut down the data to only years up through this year
-  # as a convenience for later functions.
-  
+ 
   # from testing
   # data <- d %>% filter(district=="270-50",residency=="RESIDENT")
   
@@ -72,13 +54,7 @@ get_row_migration <- function(target_level,data,target_year=2023) {
   
 }
 
-#get_row_migration(5,d %>% 
-#                    filter(district=="270-50",residency=="RESIDENT"))
-#get_row_migration(18,d %>% 
-#                     filter(district=="270-50",residency=="RESIDENT"))
-# It looks weird to me that so many of these are negative 
-# Sam has confirmed it's right. I guess I'm not understanding
-# all the forces behind people putting in at a particular level
+
 
 get_zero_blank_estimate <- function(data,
                                     get_zero=T,
@@ -90,9 +66,6 @@ get_zero_blank_estimate <- function(data,
   # it's blanks. 
   
   if(get_zero){
-    # TODO: If there's an NA in apps between good years, 
-    # we might want to put in the zero rather than 
-    # drop it like I'm doing.
     data <- data %>% 
       filter(year <= this_year,
              points_level==0,
@@ -117,7 +90,7 @@ get_zero_blank_estimate <- function(data,
   }
   
 
-  # Chat and I worked out the below.
+
   # Applying Simple Exponential Smoothing on the differenced data
   fit <- ses(data$diff_apps[!is.na(data$diff_apps)], h = 1,level = level)
   
@@ -237,27 +210,6 @@ simulate_points_levels <- function(data,
 # apps tables for a given year. 
 
 simulate_apps_tables <- function(data,this_year=2024,num_tables=1000){
-  # given a data frame that's just the data for one district-item-
-  # residency combo, this function will simulate and return num_tables
-  # sets of simulations, in one big data.frame. We're forecasting
-  # for "this_year". The columns of that 
-  # data frame are
-  # 1. sim: a counter of the simulation
-  # 2. points_level: Blank, 0, 1, ..., max(points_level)
-  # 3. apps: a simulated number of apps
-  # 
-  # There should be length(unique(points_level))*num_tables in 
-  # the return. 
-  
-  # from testing
-  # data <- d %>% filter(district=="270-50",residency=="RESIDENT")
-  # num_tables <- 10
-  # this_year <- 2023
-  
-
-  
-  
-  
   unique_years <- data %>% pull(year) %>% unique()
   this_district <- unique(data$district)
   this_item <- unique(data$item)
@@ -325,9 +277,6 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
 
   # add adjusted points
   points_table$adjusted_points <- 1
-  
-  # Doing it this old-school way to avoid the warning that comes
-  # from attempting to call as.numeric on "Blank"
   points_table$adjusted_points[
     !(points_table$points_level %in% c(0,"Blank"))
   ] <- as.numeric(points_table$points_level[!(points_table$points_level %in% c(0,"Blank"))])^2 + 1
@@ -339,8 +288,7 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
   indices <- 1:nrow(points_table)
   
   for(i in 1:num_permits){
-    
-    # We need to calculate total points each time through
+
     points_table <- points_table %>% 
       mutate(total_points = (apps-successes)*adjusted_points)
 
@@ -368,8 +316,7 @@ run_lottery <- function(points_table, num_permits, nonresident_cap_pct=0.1){
     
   }
   
-  # Getting rid of adjusted_points and total_points
-  # since we're using the the former for bookkeeping
+
   return(points_table %>% select(-adjusted_points,-total_points))
   
 }
